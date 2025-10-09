@@ -22,6 +22,7 @@
       top: 0;
       bottom: 0;
       width: 100%;
+    
     }
   </style>
 </head>
@@ -29,7 +30,7 @@
 <body>
   <div id="map"></div>
   <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZG9tbGV0IiwiYSI6ImNtZzVyeG1hYTA3cXEyaXE0Ymp6MHBsNDIifQ.PBPONoWC4rGjYQCPHtF-bw';
+    mapboxgl.accessToken = 'pk.eyJ1Ijoia2ltcXZybHkiLCJhIjoiY21nanhrdjVvMGtnYTJtcTI3ZW8zYmh3NCJ9.fG6bpyFOf_MAl49C2NDtMg';
     const map = new mapboxgl.Map({
       container: 'map',
       /*
@@ -41,9 +42,9 @@
       Mapbox Satellite Streets: mapbox://styles/mapbox/satellite-streets-v12
       Mapbox Streets: mapbox://styles/mapbox/streets-v12
       */
-      style: 'mapbox://styles/mapbox/outdoors-v12',
+      style: 'mapbox://styles/kimqvrly/cmgjxymae00fe01reatlsdhgi',
       center: [-122.20591986967307, 37.784061128468956 ],
-      zoom: 10
+      zoom: 12
     
     });
 
@@ -63,6 +64,7 @@
                 'name': "Coliseum College Prep Academy",
             
                 'description': "I go to school here and am enrolled into digital arts",
+                  'image' : "img/ccpa.jpeg"
               }
             },
             {
@@ -74,6 +76,7 @@
               "properties": {
                 'name': "Merritt College",
                 'description': "I attended my emt class here",
+                'image' : "img/merritt.jpeg"
               }
             },
             {
@@ -85,6 +88,7 @@
               "properties": {
                 'name': "Highland Hospital",
                 'description': "HEAL program",
+                'image' : "img/highland.jpeg"
               }
             }
           ]
@@ -95,8 +99,12 @@
         'type': 'circle',
         'source': 'my-places',
         'paint': {
-          'circle-radius': 6,
-          'circle-color': '#B42222'
+            'circle-radius': 5,
+            'circle-stroke-width': 2,
+            'circle-color': '#0099ff',
+            'circle-emissive-strength': 1,
+            'circle-stroke-color': 'green'
+
         },
         'filter': ['==', '$type', 'Point']
       });
@@ -109,13 +117,16 @@
           const coordinates = e.feature.geometry.coordinates.slice();
           const name = e.feature.properties.name;
           const description = e.feature.properties.description;
+          const image = e.feature.properties.image;
           // const image = e.feature.properties.image;
 
           new mapboxgl.Popup()
             .setLngLat(coordinates)
             .setHTML("<strong>" + name + "</strong><br/>" + description)
-            // .setHTML("<img src='" + image + "'><br><strong>" + name + "</strong><br/>" + description)
-            .addTo(map);
+            .setHTML("<img src='" + image + "'><br><strong>" + name + "</strong><br/>" + description)
+             // .setHTML("<img src='" + image + "'><br><strong>" + name + "</strong><br/>" + description)
+             .addTo(map);
+
         }
       });
     });
